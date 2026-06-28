@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VLK — Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes</title>
+  <meta name="description" content="VLK: a vision-language-kinematics policy that learns humanoid loco-manipulation from purely synthetic interactions in reconstructed real-world scenes — and transfers to the real world zero-shot." />
+  <meta property="og:title" content="VLK — Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes" />
+  <meta property="og:image" content="images/hero_poster.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ======================================================================
+     HERO  — full-bleed video background + paper title + authors
+     ====================================================================== -->
+<header id="top" class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <video src="videos/hero_bg.mp4" autoplay muted loop playsinline poster="images/hero_poster.jpg"></video>
+    <div class="hero-bg-grade"></div>
+    <div class="hero-bg-vignette"></div>
+  </div>
+
+  <nav class="nav nav-floating">
+    <a href="#top" class="nav-logo"><span class="logo-mark">VLK</span></a>
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#modes">Data</a>
+      <a href="#sim">Sim</a>
+      <a href="#real">Real</a>
+      <a href="#paper">Paper</a>
+    </div>
+    <a class="nav-cta" href="#real">See it in action ↗</a>
+  </nav>
+
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      <span>Preprint · 2026</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-mark">VLK</span>
+      <span class="hero-sub">
+        Learning Humanoid Loco-Manipulation<br/>
+        from Synthetic Interactions in Reconstructed Scenes
+      </span>
+    </h1>
+
+    <div class="authors">
+      <p class="author-line">
+        <a href="https://yenjen.me/" class="author" target="_blank" rel="noopener">Yen-Jen Wang</a><sup>*,1,2</sup>,
+        <a href="https://lijiaman.github.io/" class="author" target="_blank" rel="noopener">Jiaman Li</a><sup>*,‡,1</sup>,
+        <a href="https://ericcsr.github.io/" class="author" target="_blank" rel="noopener">Sirui Chen</a><sup>§,1,3</sup>,
+        <a href="https://takaratruong.com/" class="author" target="_blank" rel="noopener">Takara E. Truong</a><sup>§,1,3</sup>,
+        <a href="https://pei-xu.github.io/" class="author" target="_blank" rel="noopener">Pei Xu</a><sup>§,1</sup>,
+      </p>
+      <p class="author-line">
+        <a href="https://people.eecs.berkeley.edu/~pabbeel/" class="author" target="_blank" rel="noopener">Pieter Abbeel</a><sup>†,1,2</sup>,
+        <a href="http://rockyduan.com/" class="author" target="_blank" rel="noopener">Rocky Duan</a><sup>†,1</sup>,
+        <a href="https://hybrid-robotics.berkeley.edu/koushil/" class="author" target="_blank" rel="noopener">Koushil Sreenath</a><sup>†,1,2</sup>,
+        <a href="https://people.eecs.berkeley.edu/~kanazawa/" class="author" target="_blank" rel="noopener">Angjoo Kanazawa</a><sup>†,1,2</sup>,
+      </p>
+      <p class="author-line">
+        <a href="https://sferrazza.cc/" class="author" target="_blank" rel="noopener">Carmelo Sferrazza</a><sup>†,1</sup>,
+        <a href="https://www.gshi.me/" class="author" target="_blank" rel="noopener">Guanya Shi</a><sup>†,1,4</sup>,
+        <a href="https://tml.stanford.edu/" class="author" target="_blank" rel="noopener">C. Karen Liu</a><sup>†,1,3</sup>
+      </p>
+      <p class="affiliations">
+        <sup>1</sup>Amazon FAR <span class="sep">·</span>
+        <sup>2</sup>UC Berkeley <span class="sep">·</span>
+        <sup>3</sup>Stanford University <span class="sep">·</span>
+        <sup>4</sup>Carnegie Mellon University
+      </p>
+      <p class="affiliations-foot">
+        <sup>*</sup>Co-first authors. <sup>‡</sup>Project lead.
+        <sup>§</sup>Equal contribution. <sup>†</sup>Amazon FAR Team Co-Lead.
+      </p>
+    </div>
+
+    <div class="hero-cta-row">
+      <a href="#paper" class="btn btn-primary">📄 Paper (arXiv)</a>
+      <a href="#method" class="btn">Read the method</a>
+      <a href="#real" class="btn btn-ghost">▶ Watch real-world demos</a>
+    </div>
+  </div>
+
+  <a class="hero-scroll-cue" href="#abstract">
+    <span class="cue-label">scroll</span>
+    <span class="cue-line"></span>
+  </a>
+</header>
+
+<!-- ======================================================================
+     ABSTRACT
+     ====================================================================== -->
+<section id="abstract" class="abstract reveal">
+  <div class="container abstract-container">
+    <div class="abstract-side">
+      <p class="section-eyebrow">abstract</p>
+      <h2 class="section-title section-title-sm">The paper, in one paragraph.</h2>
+    </div>
+    <div class="abstract-body">
+      <p>
+        Perception-based humanoid loco-manipulation requires connecting
+        egocentric observations and task instructions to whole-body motion.
+        Learning this mapping requires synchronized egocentric images,
+        language commands, and robot-compatible kinematic trajectories,
+        yet <em>no existing data source provides this complete tuple at scale</em>.
+      </p>
+      <p>
+        We address this bottleneck by generating
+        <strong>vision-language-kinematics (VLK)</strong> supervision
+        synthetically in reconstructed scenes. Our pipeline leverages
+        <strong>3D Gaussian Splatting</strong> to reconstruct metric-scale
+        indoor environments, synthesizes navigation and object-interaction
+        trajectories using privileged scene information, and renders paired
+        egocentric observations after the fact. We produce
+        <strong>48,000 paired trajectories</strong> with no human intervention
+        and train a VLK policy that predicts short-horizon whole-body
+        kinematic trajectories. A whole-body tracker converts these
+        predictions into actions on the physical humanoid.
+      </p>
+      <p>
+        We evaluate on the physical <strong>Unitree&nbsp;G1</strong> performing
+        navigation and single-object transport, demonstrating that synthesized
+        interactions in reconstructed scenes provide effective supervision for
+        <strong>sim-to-real perception-based humanoid loco-manipulation</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     TEASER NARRATIVE — three-pillar
+     ====================================================================== -->
+<section id="story" class="story reveal">
+  <div class="container">
+    <p class="section-eyebrow">how it works</p>
+    <h2 class="section-title">From a phone scan, to a real-world humanoid.</h2>
+
+    <div class="pillar-strip">
+      <article class="pillar">
+        <span class="pillar-num">01</span>
+        <h3>Scan</h3>
+        <p>An iPhone walk-around becomes a 3D Gaussian-Splatting replica of the room — metric-scale, photorealistic.</p>
+      </article>
+      <div class="pillar-arrow" aria-hidden="true">→</div>
+
+      <article class="pillar">
+        <span class="pillar-num">02</span>
+        <h3>Synthesize</h3>
+        <p>Whole-body Unitree G1 trajectories are generated inside the replica — automatic, language-conditioned, scalable.</p>
+      </article>
+      <div class="pillar-arrow" aria-hidden="true">→</div>
+
+      <article class="pillar">
+        <span class="pillar-num">03</span>
+        <h3>Deploy</h3>
+        <p>A π-0.5-initialised VLK policy fine-tuned on the synthetic data runs on the real Unitree G1 — <strong>zero-shot</strong>.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     METHOD — two large stages
+     ====================================================================== -->
+<section id="method" class="method reveal">
+  <div class="container">
+    <p class="section-eyebrow">method</p>
+    <h2 class="section-title">Two stages, end-to-end.</h2>
+    <p class="section-lead">Stage 1 generates massive synthetic data inside reconstructed scenes. Stage 2 trains a vision-language-kinematics policy on it.</p>
+
+    <article class="stage stage-1 reveal">
+      <div class="stage-side">
+        <span class="step-pill">Stage 01 · Synthetic Data Generation</span>
+        <h3>Build the data on a desk, not in the wild.</h3>
+        <p class="stage-lede">
+          We turn a single iPhone scan into <strong>tens of thousands of paired whole-body trajectories</strong>
+          — fully automatic, fully indoors.
+        </p>
+        <ol class="stage-steps">
+          <li><span class="step-no">1</span><div><strong>Scene Reconstruction.</strong> iPhone → 3D Gaussian Splatting at metric scale.</div></li>
+          <li><span class="step-no">2</span><div><strong>Waypoint Generation.</strong> Sample feasible walk-to / pick-from / place-onto spots from scene geometry.</div></li>
+          <li><span class="step-no">3</span><div><strong>Motion Synthesis.</strong> Conditional diffusion produces G1 whole-body motions following the waypoints.</div></li>
+          <li><span class="step-no">4</span><div><strong>Egocentric Rendering.</strong> Replay motions in the 3DGS scene; randomize lighting, color, and camera for transfer.</div></li>
+        </ol>
+      </div>
+      <div class="stage-media">
+        <video src="videos/method_data.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_method_data.jpg"></video>
+      </div>
+    </article>
+
+    <article class="stage stage-2 reveal">
+      <div class="stage-side">
+        <span class="step-pill step-pill-alt">Stage 02 · VLK Policy</span>
+        <h3>One policy, three inputs, real-time on hardware.</h3>
+        <p class="stage-lede">
+          A pretrained π-0.5 backbone, fine-tuned on the synthetic data, predicts a
+          <strong>1-second future whole-body trajectory at 30&nbsp;Hz</strong>
+          — that a sim-trained tracker drives onto real joints.
+        </p>
+        <ol class="stage-steps">
+          <li><span class="step-no">1</span><div><strong>Inputs.</strong> Egocentric image + language instruction + current G1 state (incl. wrist contact).</div></li>
+          <li><span class="step-no">2</span><div><strong>Backbone.</strong> Initialize from pretrained π-0.5 VLA; fine-tune on synthetic data only.</div></li>
+          <li><span class="step-no">3</span><div><strong>Output.</strong> 1-second future whole-body kinematic trajectory at 30&nbsp;Hz.</div></li>
+          <li><span class="step-no">4</span><div><strong>Tracker.</strong> Sim-trained whole-body tracker turns kinematics into joint commands at 31&nbsp;ms latency.</div></li>
+        </ol>
+        <p class="stage-coda">
+          After training, we deploy our model in <strong>simulation</strong> and on the <strong>real world Unitree&nbsp;G1</strong>.
+        </p>
+      </div>
+      <div class="stage-media">
+        <video src="videos/method_policy.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_method_policy.jpg"></video>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================================================================
+     DATA MODES — six cards
+     ====================================================================== -->
+<section id="modes" class="modes reveal">
+  <div class="container">
+    <p class="section-eyebrow">synthetic data</p>
+    <h2 class="section-title">Six data modes, two scenes, side-by-side.</h2>
+    <p class="section-lead">
+      Each mode is rendered for both an <span class="chip chip-blue">Apartment</span>
+      and a <span class="chip chip-red">Lab</span> 3DGS replica.
+    </p>
+
+    <div class="mode-grid">
+      <figure class="mode-card">
+        <video src="videos/mode_walk_to.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_walk_to.jpg"></video>
+        <figcaption>
+          <span class="mode-num">01</span>
+          <div><span class="mode-name">Walk to</span><span class="mode-desc">target object navigation.</span></div>
+        </figcaption>
+      </figure>
+      <figure class="mode-card">
+        <video src="videos/mode_turn_around.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_turn_around.jpg"></video>
+        <figcaption>
+          <span class="mode-num">02</span>
+          <div><span class="mode-name">Turn around</span><span class="mode-desc">left / right pivots in place.</span></div>
+        </figcaption>
+      </figure>
+      <figure class="mode-card">
+        <video src="videos/mode_pick_floor.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_pick_floor.jpg"></video>
+        <figcaption>
+          <span class="mode-num">03</span>
+          <div><span class="mode-name">Pick (floor)</span><span class="mode-desc">grasp from ground plane.</span></div>
+        </figcaption>
+      </figure>
+      <figure class="mode-card">
+        <video src="videos/mode_put_floor.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_put_floor.jpg"></video>
+        <figcaption>
+          <span class="mode-num">04</span>
+          <div><span class="mode-name">Place (floor)</span><span class="mode-desc">deposit onto ground plane.</span></div>
+        </figcaption>
+      </figure>
+      <figure class="mode-card">
+        <video src="videos/mode_pick_surface.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_pick_surface.jpg"></video>
+        <figcaption>
+          <span class="mode-num">05</span>
+          <div><span class="mode-name">Pick (surface)</span><span class="mode-desc">grasp from elevated surface.</span></div>
+        </figcaption>
+      </figure>
+      <figure class="mode-card">
+        <video src="videos/mode_put_surface.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_mode_put_surface.jpg"></video>
+        <figcaption>
+          <span class="mode-num">06</span>
+          <div><span class="mode-name">Place (surface)</span><span class="mode-desc">deposit onto elevated surface.</span></div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     SIM DEPLOYMENT
+     ====================================================================== -->
+<section id="sim" class="deploy-sim reveal">
+  <div class="container">
+    <p class="section-eyebrow">sim deployment</p>
+    <h2 class="section-title">Lab and Apartment, executed.</h2>
+    <p class="section-lead">
+      After training on purely synthetic data, the policy executes streamed multi-step language
+      instructions inside both 3DGS replicas.
+    </p>
+
+    <div class="sim-grid">
+      <figure class="sim-card">
+        <video src="videos/sim_lab.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_sim_lab.jpg"></video>
+        <figcaption>Multi-step language streaming inside the Lab 3DGS replica.</figcaption>
+      </figure>
+      <figure class="sim-card">
+        <video src="videos/sim_apartment.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_sim_apartment.jpg"></video>
+        <figcaption>The same policy, executing in the Apartment 3DGS replica.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     REAL DEPLOYMENT — five tasks
+     ====================================================================== -->
+<section id="real" class="deploy-real">
+  <div class="container">
+    <p class="section-eyebrow">real deployment · zero-shot</p>
+    <h2 class="section-title">Five real-world tasks. One policy. Zero fine-tuning.</h2>
+
+    <article class="task reveal" id="task-nav">
+      <header class="task-head">
+        <div class="task-meta"><span class="task-num">Task 01</span><span class="task-tag">Navigation</span></div>
+        <h3>Language-conditioned navigation in unseen layouts.</h3>
+        <p>Random initial poses; instructions never seen during data generation. The policy still walks to the right object.</p>
+      </header>
+      <div class="task-grid task-grid-2">
+        <figure>
+          <video src="videos/task1_nav4.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task1_nav4.jpg"></video>
+          <figcaption>4-grid: walk to <span class="kbd">black chair</span> · <span class="kbd">stool</span> · <span class="kbd">white chair</span> · <span class="kbd">wooden desk</span>.</figcaption>
+        </figure>
+        <figure>
+          <video src="videos/task1_walkrand.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task1_walkrand.jpg"></video>
+          <figcaption>Random pose / unseen instruction. Both zero-shot.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="task reveal" id="task-box">
+      <header class="task-head">
+        <div class="task-meta"><span class="task-num">Task 02</span><span class="task-tag">Box Lifting</span></div>
+        <h3>Three sizes, same policy.</h3>
+        <p>Small, medium, large boxes picked from the floor and placed back — no per-size tuning.</p>
+      </header>
+      <div class="task-grid task-grid-1">
+        <figure>
+          <video src="videos/task2_box.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task2_box.jpg"></video>
+          <figcaption>Three boxes, picked &amp; placed in sync.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="task reveal" id="task-multi">
+      <header class="task-head">
+        <div class="task-meta"><span class="task-num">Task 03</span><span class="task-tag">Multi-Stage</span></div>
+        <h3>Atomic skills, chained in real time.</h3>
+        <p>Walk → pick → carry → place — streamed via language, sequenced at runtime.</p>
+      </header>
+      <div class="task-grid task-grid-1">
+        <figure>
+          <video src="videos/task3_multi.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task3_multi.jpg"></video>
+          <figcaption>Three multi-stage chains, different starting conditions.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="task reveal" id="task-dist">
+      <header class="task-head">
+        <div class="task-meta"><span class="task-num">Task 04</span><span class="task-tag">Robustness</span></div>
+        <h3>Disturbance during action.</h3>
+        <p>The scene changes mid-act, or the lights flicker like a disco. The policy keeps going.</p>
+      </header>
+      <div class="task-grid task-grid-2 task-grid-portrait">
+        <figure>
+          <video src="videos/task4_dynamic.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task4_dynamic.jpg"></video>
+          <figcaption>Layout altered while the robot is acting — dynamic scene change.</figcaption>
+        </figure>
+        <figure>
+          <video src="videos/task4_disco.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task4_disco.jpg"></video>
+          <figcaption>Flickering disco-light visual perturbation.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="task reveal" id="task-lh">
+      <header class="task-head">
+        <div class="task-meta"><span class="task-num">Task 05</span><span class="task-tag">Long-Horizon</span></div>
+        <h3>Multi-minute behaviours.</h3>
+        <p>Navigation and pick-and-place chained under streamed language for minutes-long tasks.</p>
+      </header>
+      <div class="task-grid task-grid-2">
+        <figure>
+          <video src="videos/task5_lh1.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task5_lh1.jpg"></video>
+          <figcaption>Long-horizon trial 1.</figcaption>
+        </figure>
+        <figure>
+          <video src="videos/task5_lh2.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_task5_lh2.jpg"></video>
+          <figcaption>Long-horizon trial 2.</figcaption>
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAPER + BIBTEX
+     ====================================================================== -->
+<section id="paper" class="paper reveal">
+  <div class="container">
+    <p class="section-eyebrow">paper</p>
+    <h2 class="section-title">Read the paper.</h2>
+
+    <div class="paper-container">
+      <div class="paper-left">
+        <div class="paper-card">
+          <span class="paper-card-tag">Preprint</span>
+          <p class="paper-card-title">VLK: Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes</p>
+          <p class="paper-card-meta">Wang, Li, Chen, Truong, Xu, Abbeel, Duan, Sreenath, Kanazawa, Sferrazza, Shi, Liu &nbsp;·&nbsp; 2026</p>
+          <div class="paper-cta">
+            <a class="btn btn-primary" href="#" aria-disabled="true">arXiv (link soon)</a>
+            <a class="btn" href="#real">Watch demos</a>
+          </div>
+        </div>
+      </div>
+      <div class="paper-right">
+        <div class="bibtex-head">
+          <span class="bibtex-label">BibTeX</span>
+          <button class="bibtex-copy" type="button" data-copy-target="#bibtex-block">Copy</button>
+        </div>
+        <pre class="bibtex"><code id="bibtex-block">@article{wang2026vlk,
+  title   = {VLK: Learning Humanoid Loco-Manipulation
+             from Synthetic Interactions in
+             Reconstructed Scenes},
+  author  = {Wang, Yen-Jen and Li, Jiaman and
+             Chen, Sirui and Truong, Takara E. and
+             Xu, Pei and Abbeel, Pieter and
+             Duan, Rocky and Sreenath, Koushil and
+             Kanazawa, Angjoo and Sferrazza, Carmelo and
+             Shi, Guanya and Liu, C. Karen},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     ACKNOWLEDGEMENTS
+     ====================================================================== -->
+<section id="ack" class="ack reveal">
+  <div class="container ack-container">
+    <p class="section-eyebrow">acknowledgements</p>
+    <p class="ack-body">
+      We thank <strong>Xiaoyu Huang</strong> for preparing a clean retargeted OMOMO dataset;
+      <strong>Alejandro Escontrela</strong> for guidance on 3DGS training;
+      <strong>Jenny Zhang</strong> and <strong>Hunter Liu</strong> for providing realistic box assets for rendering;
+      and <strong>Eric Lalumiere</strong> for providing the camera mount.
+      We also thank <strong>Zhen Wu</strong>, <strong>Shibo Zhao</strong>, and <strong>Yunsheng Tian</strong>
+      for valuable discussions on motion synthesis and Real2Sim pipelines.
+      We are grateful to <strong>Haozhi Qi</strong> and <strong>Linda Shih</strong>
+      for providing experimental hardware support, and to
+      <strong>Shuying Deng</strong> for her valuable feedback on the design and
+      visual presentation of the paper figures.
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     FOOTER
+     ====================================================================== -->
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-brand">VLK</div>
+    <div class="foot-meta">
+      <span>Amazon FAR</span><span>·</span>
+      <span>UC Berkeley</span><span>·</span>
+      <span>Stanford</span><span>·</span>
+      <span>CMU</span>
+    </div>
+    <a href="#top" class="foot-top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
