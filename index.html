@@ -34,15 +34,9 @@
       <a href="#real">Real</a>
       <a href="#paper">Paper</a>
     </div>
-    <a class="nav-cta" href="#real">See it in action ↗</a>
   </nav>
 
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="dot"></span>
-      <span>Preprint · 2026</span>
-    </div>
-
     <h1 class="hero-title">
       <span class="hero-mark">VLK</span>
       <span class="hero-sub">
@@ -82,108 +76,89 @@
       </p>
     </div>
 
-    <div class="hero-cta-row">
-      <a href="#paper" class="btn btn-primary">📄 Paper (arXiv)</a>
-      <a href="#method" class="btn">Read the method</a>
-      <a href="#real" class="btn btn-ghost">▶ Watch real-world demos</a>
-    </div>
   </div>
-
-  <a class="hero-scroll-cue" href="#abstract">
-    <span class="cue-label">scroll</span>
-    <span class="cue-line"></span>
-  </a>
 </header>
 
 <!-- ======================================================================
-     ABSTRACT
+     ABSTRACT + HIGHLIGHT — paired side-by-side
      ====================================================================== -->
 <section id="abstract" class="abstract reveal">
-  <div class="container abstract-container">
-    <div class="abstract-side">
+  <div class="container abstract-pair">
+    <div class="abstract-text">
       <p class="section-eyebrow">abstract</p>
-      <h2 class="section-title section-title-sm">The paper, in one paragraph.</h2>
+      <div class="abstract-body">
+        <p>
+          Perception-based humanoid loco-manipulation requires connecting
+          egocentric observations and task instructions to whole-body motion.
+          Learning this mapping requires synchronized egocentric images,
+          language commands, and robot-compatible kinematic trajectories,
+          yet no existing data source provides this complete tuple at scale.
+        </p>
+        <p>
+          We address this bottleneck by generating
+          vision-language-kinematics (VLK) supervision synthetically in
+          reconstructed scenes. Our pipeline leverages 3D Gaussian Splatting
+          to reconstruct metric-scale indoor environments, synthesizes
+          navigation and object-interaction trajectories using privileged
+          scene information, and renders paired egocentric observations
+          after the fact. We produce 48,000 paired trajectories with no human
+          intervention and train a VLK policy that predicts short-horizon
+          whole-body kinematic trajectories.
+          <a href="https://ericcsr.github.io/scenebot/" target="_blank" rel="noopener" class="inline-link">A whole-body tracker</a>
+          converts these predictions into actions on the physical humanoid.
+        </p>
+        <p>
+          We evaluate on the physical Unitree&nbsp;G1 performing navigation
+          and single-object transport, demonstrating that synthesized
+          interactions in reconstructed scenes provide effective supervision
+          for sim-to-real perception-based humanoid loco-manipulation.
+        </p>
+      </div>
     </div>
-    <div class="abstract-body">
-      <p>
-        Perception-based humanoid loco-manipulation requires connecting
-        egocentric observations and task instructions to whole-body motion.
-        Learning this mapping requires synchronized egocentric images,
-        language commands, and robot-compatible kinematic trajectories,
-        yet <em>no existing data source provides this complete tuple at scale</em>.
+
+    <div class="abstract-media">
+      <p class="section-eyebrow">real-world highlights</p>
+      <div class="highlight-frame">
+        <video src="videos/highlight.mp4"
+               autoplay muted loop playsinline
+               preload="metadata"
+               poster="images/poster_highlight.jpg"></video>
+      </div>
+      <p class="highlight-caption">
+        VLK on the real Unitree&nbsp;G1 — trained on purely synthetic data,
+        <strong>deployed autonomously, zero-shot</strong>.
       </p>
-      <p>
-        We address this bottleneck by generating
-        <strong>vision-language-kinematics (VLK)</strong> supervision
-        synthetically in reconstructed scenes. Our pipeline leverages
-        <strong>3D Gaussian Splatting</strong> to reconstruct metric-scale
-        indoor environments, synthesizes navigation and object-interaction
-        trajectories using privileged scene information, and renders paired
-        egocentric observations after the fact. We produce
-        <strong>48,000 paired trajectories</strong> with no human intervention
-        and train a VLK policy that predicts short-horizon whole-body
-        kinematic trajectories. A whole-body tracker converts these
-        predictions into actions on the physical humanoid.
-      </p>
-      <p>
-        We evaluate on the physical <strong>Unitree&nbsp;G1</strong> performing
-        navigation and single-object transport, demonstrating that synthesized
-        interactions in reconstructed scenes provide effective supervision for
-        <strong>sim-to-real perception-based humanoid loco-manipulation</strong>.
-      </p>
-    </div>
-  </div>
-</section>
 
-<!-- ======================================================================
-     TEASER NARRATIVE — three-pillar
-     ====================================================================== -->
-<section id="story" class="story reveal">
-  <div class="container">
-    <p class="section-eyebrow">how it works</p>
-    <h2 class="section-title">From a phone scan, to a real-world humanoid.</h2>
-
-    <div class="pillar-strip">
-      <article class="pillar">
-        <span class="pillar-num">01</span>
-        <h3>Scan</h3>
-        <p>An iPhone walk-around becomes a 3D Gaussian-Splatting replica of the room — metric-scale, photorealistic.</p>
-      </article>
-      <div class="pillar-arrow" aria-hidden="true">→</div>
-
-      <article class="pillar">
-        <span class="pillar-num">02</span>
-        <h3>Synthesize</h3>
-        <p>Whole-body Unitree G1 trajectories are generated inside the replica — automatic, language-conditioned, scalable.</p>
-      </article>
-      <div class="pillar-arrow" aria-hidden="true">→</div>
-
-      <article class="pillar">
-        <span class="pillar-num">03</span>
-        <h3>Deploy</h3>
-        <p>A π-0.5-initialised VLK policy fine-tuned on the synthetic data runs on the real Unitree G1 — <strong>zero-shot</strong>.</p>
-      </article>
+      <ul class="feature-row">
+        <li class="feature">
+          <span class="feature-num">48k</span>
+          <span class="feature-lab">paired trajectories<br/><em>per scene</em></span>
+        </li>
+        <li class="feature">
+          <span class="feature-num">5</span>
+          <span class="feature-lab">real-world<br/><em>task families</em></span>
+        </li>
+        <li class="feature">
+          <span class="feature-num">0</span>
+          <span class="feature-lab">real-world<br/><em>fine-tuning</em></span>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- ======================================================================
-     METHOD — two large stages
+     METHOD — two stages
      ====================================================================== -->
 <section id="method" class="method reveal">
   <div class="container">
     <p class="section-eyebrow">method</p>
-    <h2 class="section-title">Two stages, end-to-end.</h2>
-    <p class="section-lead">Stage 1 generates massive synthetic data inside reconstructed scenes. Stage 2 trains a vision-language-kinematics policy on it.</p>
+    <h2 class="section-title">Real world in. Real world out. Everything in between is synthesized.</h2>
 
     <article class="stage stage-1 reveal">
       <div class="stage-side">
         <span class="step-pill">Stage 01 · Synthetic Data Generation</span>
-        <h3>Build the data on a desk, not in the wild.</h3>
-        <p class="stage-lede">
-          We turn a single iPhone scan into <strong>tens of thousands of paired whole-body trajectories</strong>
-          — fully automatic, fully indoors.
-        </p>
+        <h3>Generate paired data inside a reconstructed scene.</h3>
         <ol class="stage-steps">
           <li><span class="step-no">1</span><div><strong>Scene Reconstruction.</strong> iPhone → 3D Gaussian Splatting at metric scale.</div></li>
           <li><span class="step-no">2</span><div><strong>Waypoint Generation.</strong> Sample feasible walk-to / pick-from / place-onto spots from scene geometry.</div></li>
@@ -199,20 +174,15 @@
     <article class="stage stage-2 reveal">
       <div class="stage-side">
         <span class="step-pill step-pill-alt">Stage 02 · VLK Policy</span>
-        <h3>One policy, three inputs, real-time on hardware.</h3>
-        <p class="stage-lede">
-          A pretrained π-0.5 backbone, fine-tuned on the synthetic data, predicts a
-          <strong>1-second future whole-body trajectory at 30&nbsp;Hz</strong>
-          — that a sim-trained tracker drives onto real joints.
-        </p>
+        <h3>Train a vision-language-kinematics policy on the synthetic data.</h3>
         <ol class="stage-steps">
           <li><span class="step-no">1</span><div><strong>Inputs.</strong> Egocentric image + language instruction + current G1 state (incl. wrist contact).</div></li>
-          <li><span class="step-no">2</span><div><strong>Backbone.</strong> Initialize from pretrained π-0.5 VLA; fine-tune on synthetic data only.</div></li>
+          <li><span class="step-no">2</span><div><strong>Backbone.</strong> Initialize from pretrained <a href="https://www.pi.website/blog/pi05" target="_blank" rel="noopener" class="inline-link">π-0.5</a> VLA; fine-tune on synthetic data only.</div></li>
           <li><span class="step-no">3</span><div><strong>Output.</strong> 1-second future whole-body kinematic trajectory at 30&nbsp;Hz.</div></li>
-          <li><span class="step-no">4</span><div><strong>Tracker.</strong> Sim-trained whole-body tracker turns kinematics into joint commands at 31&nbsp;ms latency.</div></li>
+          <li><span class="step-no">4</span><div><strong>Tracker.</strong> We use <a href="https://ericcsr.github.io/scenebot/" target="_blank" rel="noopener" class="inline-link">SceneBot</a>, a sim-trained whole-body tracker, to convert kinematic predictions into joint commands at 50&nbsp;Hz.</div></li>
         </ol>
         <p class="stage-coda">
-          After training, we deploy our model in <strong>simulation</strong> and on the <strong>real world Unitree&nbsp;G1</strong>.
+          After training, we deploy the model in simulation and on the real Unitree&nbsp;G1.
         </p>
       </div>
       <div class="stage-media">
@@ -228,10 +198,11 @@
 <section id="modes" class="modes reveal">
   <div class="container">
     <p class="section-eyebrow">synthetic data</p>
-    <h2 class="section-title">Six data modes, two scenes, side-by-side.</h2>
+    <h2 class="section-title">Data modes.</h2>
     <p class="section-lead">
-      Each mode is rendered for both an <span class="chip chip-blue">Apartment</span>
-      and a <span class="chip chip-red">Lab</span> 3DGS replica.
+      Six trajectory modes are synthesized in both an
+      <span class="chip chip-blue">Apartment</span> and a
+      <span class="chip chip-red">Lab</span> 3DGS replica.
     </p>
 
     <div class="mode-grid">
@@ -287,10 +258,11 @@
 <section id="sim" class="deploy-sim reveal">
   <div class="container">
     <p class="section-eyebrow">sim deployment</p>
-    <h2 class="section-title">Lab and Apartment, executed.</h2>
+    <h2 class="section-title">Deployment in simulation.</h2>
     <p class="section-lead">
-      After training on purely synthetic data, the policy executes streamed multi-step language
-      instructions inside both 3DGS replicas.
+      Separate VLK policies are trained for the Lab and Apartment scenes;
+      each is evaluated inside its own 3DGS replica under streamed
+      multi-step language instructions.
     </p>
 
     <div class="sim-grid">
@@ -300,7 +272,7 @@
       </figure>
       <figure class="sim-card">
         <video src="videos/sim_apartment.mp4" loop muted playsinline preload="metadata" controls poster="images/poster_sim_apartment.jpg"></video>
-        <figcaption>The same policy, executing in the Apartment 3DGS replica.</figcaption>
+        <figcaption>A separately-trained VLK policy executing in the Apartment 3DGS replica.</figcaption>
       </figure>
     </div>
   </div>
@@ -311,14 +283,18 @@
      ====================================================================== -->
 <section id="real" class="deploy-real">
   <div class="container">
-    <p class="section-eyebrow">real deployment · zero-shot</p>
-    <h2 class="section-title">Five real-world tasks. One policy. Zero fine-tuning.</h2>
+    <p class="section-eyebrow">real deployment</p>
+    <h2 class="section-title">Deployment on the real Unitree G1.</h2>
+    <p class="section-lead">
+      We evaluate the VLK policy on five real-world task families with
+      no real-world fine-tuning.
+    </p>
 
     <article class="task reveal" id="task-nav">
       <header class="task-head">
         <div class="task-meta"><span class="task-num">Task 01</span><span class="task-tag">Navigation</span></div>
-        <h3>Language-conditioned navigation in unseen layouts.</h3>
-        <p>Random initial poses; instructions never seen during data generation. The policy still walks to the right object.</p>
+        <h3>Navigation.</h3>
+        <p>From random initial poses, the policy walks to the language-specified target across unseen layouts.</p>
       </header>
       <div class="task-grid task-grid-2">
         <figure>
@@ -335,8 +311,8 @@
     <article class="task reveal" id="task-box">
       <header class="task-head">
         <div class="task-meta"><span class="task-num">Task 02</span><span class="task-tag">Box Lifting</span></div>
-        <h3>Three sizes, same policy.</h3>
-        <p>Small, medium, large boxes picked from the floor and placed back — no per-size tuning.</p>
+        <h3>Box lifting.</h3>
+        <p>Small, medium, and large boxes are picked from the floor and placed back, with no per-size tuning.</p>
       </header>
       <div class="task-grid task-grid-1">
         <figure>
@@ -349,8 +325,8 @@
     <article class="task reveal" id="task-multi">
       <header class="task-head">
         <div class="task-meta"><span class="task-num">Task 03</span><span class="task-tag">Multi-Stage</span></div>
-        <h3>Atomic skills, chained in real time.</h3>
-        <p>Walk → pick → carry → place — streamed via language, sequenced at runtime.</p>
+        <h3>Multi-stage tasks.</h3>
+        <p>Walk, pick, carry, and place are chained at runtime via streamed language instructions.</p>
       </header>
       <div class="task-grid task-grid-1">
         <figure>
@@ -363,8 +339,8 @@
     <article class="task reveal" id="task-dist">
       <header class="task-head">
         <div class="task-meta"><span class="task-num">Task 04</span><span class="task-tag">Robustness</span></div>
-        <h3>Disturbance during action.</h3>
-        <p>The scene changes mid-act, or the lights flicker like a disco. The policy keeps going.</p>
+        <h3>Robustness to disturbance.</h3>
+        <p>We test the policy under mid-action scene-layout changes and under flickering disco-light visual perturbations.</p>
       </header>
       <div class="task-grid task-grid-2 task-grid-portrait">
         <figure>
@@ -381,8 +357,8 @@
     <article class="task reveal" id="task-lh">
       <header class="task-head">
         <div class="task-meta"><span class="task-num">Task 05</span><span class="task-tag">Long-Horizon</span></div>
-        <h3>Multi-minute behaviours.</h3>
-        <p>Navigation and pick-and-place chained under streamed language for minutes-long tasks.</p>
+        <h3>Long-horizon tasks.</h3>
+        <p>Navigation and pick-and-place are chained under streamed language for minutes-long trials.</p>
       </header>
       <div class="task-grid task-grid-2">
         <figure>
@@ -404,7 +380,6 @@
 <section id="paper" class="paper reveal">
   <div class="container">
     <p class="section-eyebrow">paper</p>
-    <h2 class="section-title">Read the paper.</h2>
 
     <div class="paper-container">
       <div class="paper-left">
@@ -414,7 +389,6 @@
           <p class="paper-card-meta">Wang, Li, Chen, Truong, Xu, Abbeel, Duan, Sreenath, Kanazawa, Sferrazza, Shi, Liu &nbsp;·&nbsp; 2026</p>
           <div class="paper-cta">
             <a class="btn btn-primary" href="#" aria-disabled="true">arXiv (link soon)</a>
-            <a class="btn" href="#real">Watch demos</a>
           </div>
         </div>
       </div>
@@ -448,16 +422,16 @@
   <div class="container ack-container">
     <p class="section-eyebrow">acknowledgements</p>
     <p class="ack-body">
-      We thank <strong>Xiaoyu Huang</strong> for preparing a clean retargeted OMOMO dataset;
-      <strong>Alejandro Escontrela</strong> for guidance on 3DGS training;
-      <strong>Jenny Zhang</strong> and <strong>Hunter Liu</strong> for providing realistic box assets for rendering;
+      We thank <strong>Xiaoyu Huang</strong> for preparing a clean retargeted OMOMO dataset,
+      <strong>Alejandro Escontrela</strong> for guidance on 3DGS training,
+      <strong>Jenny Zhang</strong> and <strong>Hunter Liu</strong> for providing realistic box assets for rendering,
       and <strong>Eric Lalumiere</strong> for providing the camera mount.
       We also thank <strong>Zhen Wu</strong>, <strong>Shibo Zhao</strong>, and <strong>Yunsheng Tian</strong>
       for valuable discussions on motion synthesis and Real2Sim pipelines.
-      We are grateful to <strong>Haozhi Qi</strong> and <strong>Linda Shih</strong>
-      for providing experimental hardware support, and to
-      <strong>Shuying Deng</strong> for her valuable feedback on the design and
-      visual presentation of the paper figures.
+      We are grateful to <strong>Haozhi Qi</strong>, <strong>Linda Shih</strong>,
+      <strong>Youjian Huang</strong>, and <strong>Roberto Ceja</strong> for their support with the experimental hardware,
+      and to <strong>Shuying Deng</strong>, <strong>Zihan Wang</strong>, and <strong>Charlie Cheng</strong>
+      for their valuable feedback on the design and visual presentation of the paper figures and video.
     </p>
   </div>
 </section>
