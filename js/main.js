@@ -62,7 +62,24 @@
     });
   });
 
-  // ----- 4. BibTeX copy button ----------------------------------------
+  // ----- 4. Sticky nav: toggle .nav-on-hero while hero is in view -----
+  const nav = document.querySelector('.nav');
+  const hero = document.querySelector('.hero');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    const heroObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        // Hero "in view" = its bottom is below the top of the viewport.
+        // Use a small negative root margin so the swap happens near the boundary.
+        if (e.isIntersecting) nav.classList.add('nav-on-hero');
+        else nav.classList.remove('nav-on-hero');
+      });
+    }, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+    heroObs.observe(hero);
+    // Initial state: assume we start on hero
+    nav.classList.add('nav-on-hero');
+  }
+
+  // ----- 5. BibTeX copy button ----------------------------------------
   document.querySelectorAll('.bibtex-copy').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const sel = btn.getAttribute('data-copy-target');
