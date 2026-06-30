@@ -41,12 +41,20 @@ python3 -m http.server 8000
 - All non-hero videos auto-play when scrolled in, pause when out.
 - `prefers-reduced-motion`-aware (animations disabled accordingly).
 
-## Authors
+## Citation
 
-Yen-Jen Wang*¹², Jiaman Li*‡¹, Sirui Chen§¹³, Takara E. Truong§¹³, Pei Xu§¹,
-Pieter Abbeel†¹², Rocky Duan†¹, Koushil Sreenath†¹², Angjoo Kanazawa†¹²,
-Carmelo Sferrazza†¹, Guanya Shi†¹⁴, C. Karen Liu†¹³.
-
-¹Amazon FAR · ²UC Berkeley · ³Stanford University · ⁴Carnegie Mellon University.
-
-\*Co-first authors. ‡Project lead. §Equal contribution. †Amazon FAR Team Co-Lead.
+```bibtex
+@article{wang2026vlk,
+  title   = {VLK: Learning Humanoid Loco-Manipulation
+             from Synthetic Interactions in
+             Reconstructed Scenes},
+  author  = {Wang, Yen-Jen and Li, Jiaman and
+             Chen, Sirui and Truong, Takara E. and
+             Xu, Pei and Abbeel, Pieter and
+             Duan, Rocky and Sreenath, Koushil and
+             Kanazawa, Angjoo and Sferrazza, Carmelo and
+             Shi, Guanya and Liu, C. Karen},
+  journal = {arXiv preprint},
+  year    = {2026}
+}
+```
