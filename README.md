@@ -1,7 +1,6 @@
 # VLK — Project Page
 
-Static project page for **VLK: Learning Humanoid Loco-Manipulation from
-Synthetic Interactions in Reconstructed Scenes**.
+Static project page for **[VLK: Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes](https://vision-language-kinematics.github.io/)**.
 
 ## Layout
 
@@ -44,7 +43,7 @@ python3 -m http.server 8000
 ## Citation
 
 ```bibtex
-@article{wang2026vlk,
+@misc{wang2026vlk,
   title   = {VLK: Learning Humanoid Loco-Manipulation
              from Synthetic Interactions in
              Reconstructed Scenes},
@@ -54,7 +53,10 @@ python3 -m http.server 8000
              Duan, Rocky and Sreenath, Koushil and
              Kanazawa, Angjoo and Sferrazza, Carmelo and
              Shi, Guanya and Liu, C. Karen},
-  journal = {arXiv preprint},
-  year    = {2026}
+  year          = {2026},
+  eprint        = {2606.30645},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2606.30645},
 }
 ```
