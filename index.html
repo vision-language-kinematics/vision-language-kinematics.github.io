@@ -26,14 +26,21 @@
 
   <nav class="nav nav-floating">
     <a href="#top" class="nav-logo"><span class="logo-mark">VLK</span></a>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
+      <a href="#top" class="nav-link-emph">Paper</a>
+      <span class="nav-sep" aria-hidden="true"></span>
       <a href="#abstract">Abstract</a>
       <a href="#method">Method</a>
-      <a href="#modes">Data</a>
-      <a href="#sim">Sim</a>
       <a href="#real">Real</a>
-      <a href="#paper">Paper &amp; Code</a>
+      <a href="#citation">Citation</a>
+      <a href="#ack">Acknowledgements</a>
     </div>
+    <button class="nav-toggle" type="button"
+            aria-label="Toggle menu"
+            aria-controls="nav-links"
+            aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <div class="hero-inner">
@@ -74,6 +81,21 @@
         <sup>*</sup>Co-first authors. <sup>‡</sup>Project lead.
         <sup>§</sup>Equal contribution. <sup>†</sup>Amazon FAR Team Co-Lead.
       </p>
+    </div>
+
+    <div id="hero-links" class="hero-links">
+      <a class="hero-link"
+         href="https://arxiv.org/abs/2606.30645"
+         target="_blank" rel="noopener">
+        <span class="hero-link-icon" aria-hidden="true">📄</span>
+        <span class="hero-link-label">arXiv</span>
+      </a>
+      <a class="hero-link hero-link-disabled"
+         href="#" aria-disabled="true">
+        <span class="hero-link-icon" aria-hidden="true">⌨</span>
+        <span class="hero-link-label">Code</span>
+        <span class="hero-link-sub">coming soon</span>
+      </a>
     </div>
 
   </div>
@@ -375,30 +397,17 @@
 </section>
 
 <!-- ======================================================================
-     PAPER + BIBTEX
+     CITATION
      ====================================================================== -->
-<section id="paper" class="paper reveal">
-  <div class="container">
-    <p class="section-eyebrow">paper</p>
-
-    <div class="paper-container">
-      <div class="paper-left">
-        <div class="paper-card">
-          <span class="paper-card-tag">Preprint</span>
-          <p class="paper-card-title">VLK: Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes</p>
-          <p class="paper-card-meta">Wang, Li, Chen, Truong, Xu, Abbeel, Duan, Sreenath, Kanazawa, Sferrazza, Shi, Liu &nbsp;·&nbsp; 2026</p>
-          <div class="paper-cta">
-            <a class="btn btn-primary" href="https://arxiv.org/abs/2606.30645" target="_blank" rel="noopener">arXiv</a>
-            <a class="btn" href="#" aria-disabled="true">Code (coming soon)</a>
-          </div>
-        </div>
+<section id="citation" class="paper reveal">
+  <div class="container container-narrow">
+    <p class="section-eyebrow">citation</p>
+    <div class="paper-right">
+      <div class="bibtex-head">
+        <span class="bibtex-label">BibTeX</span>
+        <button class="bibtex-copy" type="button" data-copy-target="#bibtex-block">Copy</button>
       </div>
-      <div class="paper-right">
-        <div class="bibtex-head">
-          <span class="bibtex-label">BibTeX</span>
-          <button class="bibtex-copy" type="button" data-copy-target="#bibtex-block">Copy</button>
-        </div>
-        <pre class="bibtex"><code id="bibtex-block">@misc{wang2026vlk,
+      <pre class="bibtex"><code id="bibtex-block">@misc{wang2026vlk,
   title   = {VLK: Learning Humanoid Loco-Manipulation
              from Synthetic Interactions in
              Reconstructed Scenes},
@@ -414,7 +423,6 @@
   primaryClass  = {cs.RO},
   url           = {https://arxiv.org/abs/2606.30645},
 }</code></pre>
-      </div>
     </div>
   </div>
 </section>

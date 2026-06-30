@@ -62,6 +62,23 @@
     });
   });
 
+  // ----- 4a. Mobile nav toggle ----------------------------------------
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks  = document.getElementById('nav-links');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Auto-close after tapping a link
+    navLinks.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   // ----- 4. Sticky nav: toggle .nav-on-hero while hero is in view -----
   const nav = document.querySelector('.nav');
   const hero = document.querySelector('.hero');
