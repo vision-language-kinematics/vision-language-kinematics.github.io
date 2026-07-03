@@ -434,6 +434,39 @@ body::before {
   box-shadow: none;
 }
 
+/* second-tier: X thread links, understated */
+.hero-social {
+  margin: 14px 0 0 0;
+  font-size: 13.5px;
+  color: var(--fg-3);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hero-social-lead {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-right: 4px;
+}
+.hero-social a {
+  color: var(--fg-2);
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.hero-social a:hover {
+  color: var(--accent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.hero-social-sep {
+  color: rgba(255,255,255,0.25);
+  user-select: none;
+}
+
 /* ============================================================
    SECTION SCAFFOLD
    ============================================================ */
